@@ -1,10 +1,7 @@
-// pages/Login.tsx
-
 import { useState } from "react";
-import { useForm, } from "react-hook-form";
-import type { SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import LoginForm from "../components/auth/LoginForm";
-import axios from "axios";
+import { useLogin } from "../hooks/auth/useLogin";
 
 type LoginFormData = {
   email: string;
@@ -13,6 +10,7 @@ type LoginFormData = {
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const { mutate, isPending } = useLogin();
 
   const {
     register,
@@ -20,17 +18,8 @@ const Login = () => {
     formState: { errors, isSubmitting },
   } = useForm<LoginFormData>();
 
-  const onSubmit: SubmitHandler<LoginFormData> = async (data) => {
-    console.log(data);
-
-     try {
-    const res = await axios.post("http://localhost:8001/api/auth/login", data);
-
-    console.log("Success:", res.data);
-
-  } catch (error) {
-    console.log("Login failed:", error);
-  }
+  const onSubmit = (data: LoginFormData) => {
+    mutate(data);
   };
 
   return (
@@ -40,7 +29,7 @@ const Login = () => {
         handleSubmit={handleSubmit}
         onSubmit={onSubmit}
         errors={errors}
-        isSubmitting={isSubmitting}
+        isSubmitting={isPending || isSubmitting}
         showPassword={showPassword}
         setShowPassword={setShowPassword}
       />

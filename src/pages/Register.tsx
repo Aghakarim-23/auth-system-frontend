@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
 import RegisterForm from "../components/auth/RegisterForm";
-import axios from "axios";
+import { useRegister } from "../hooks/auth/useRegister";
 
 type RegisterData = {
   name: string;
@@ -17,19 +17,16 @@ type RegisterData = {
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
 
+  const { mutate, isPending } = useRegister();
+
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<RegisterData>();
 
-  const onSubmit: SubmitHandler<RegisterData> = async (data) => {
-    try {
-      console.log("REGISTER DATA:", data);
-      await axios.post("http://localhost:8001/api/auth/register", data);
-    } catch (error) {
-      console.log("Register failed:", error);
-    }
+  const onSubmit: SubmitHandler<RegisterData> = (data) => {
+    mutate(data);
   };
 
   return (
@@ -39,7 +36,7 @@ const Register = () => {
         handleSubmit={handleSubmit}
         onSubmit={onSubmit}
         errors={errors}
-        isSubmitting={isSubmitting}
+        isSubmitting={isPending}
         showPassword={showPassword}
         setShowPassword={setShowPassword}
       />
