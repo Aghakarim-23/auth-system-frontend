@@ -1,31 +1,22 @@
-// pages/Register.tsx
-
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import type { SubmitHandler } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import RegisterForm from "../components/auth/RegisterForm";
 import { useRegister } from "../hooks/auth/useRegister";
-
-type RegisterData = {
-  name: string;
-  surname: string;
-  username: string;
-  email: string;
-  password: string;
-};
+import { registerSchema } from "../schemas/register.schema";
+import type { RegisterSchemaType } from "../schemas/register.schema";
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
-
   const { mutate, isPending } = useRegister();
 
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<RegisterData>();
+    formState: { errors, isSubmitting },
+  } = useForm<RegisterSchemaType>({ resolver: zodResolver(registerSchema) });
 
-  const onSubmit: SubmitHandler<RegisterData> = (data) => {
+  const onSubmit = (data: RegisterSchemaType) => {
     mutate(data);
   };
 
@@ -36,7 +27,7 @@ const Register = () => {
         handleSubmit={handleSubmit}
         onSubmit={onSubmit}
         errors={errors}
-        isSubmitting={isPending}
+        isSubmitting={isPending || isSubmitting}
         showPassword={showPassword}
         setShowPassword={setShowPassword}
       />

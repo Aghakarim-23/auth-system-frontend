@@ -1,12 +1,10 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import LoginForm from "../components/auth/LoginForm";
 import { useLogin } from "../hooks/auth/useLogin";
-
-type LoginFormData = {
-  email: string;
-  password: string;
-};
+import { loginSchema } from "../schemas/login.schema";
+import type { LoginSchemaType } from "../schemas/login.schema";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -16,9 +14,9 @@ const Login = () => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<LoginFormData>();
+  } = useForm<LoginSchemaType>({ resolver: zodResolver(loginSchema) });
 
-  const onSubmit = (data: LoginFormData) => {
+  const onSubmit = (data: LoginSchemaType) => {
     mutate(data);
   };
 

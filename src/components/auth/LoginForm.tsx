@@ -1,26 +1,17 @@
-// components/auth/LoginForm.tsx
-
 import { Link } from "react-router-dom";
 import { FiEye, FiEyeOff } from "react-icons/fi";
-import type {
-  UseFormRegister,
-  UseFormHandleSubmit,
-  FieldErrors,
-} from "react-hook-form";
 
-type LoginFormData = {
-  email: string;
-  password: string;
-};
+import type { UseFormRegister, UseFormHandleSubmit, FieldErrors } from "react-hook-form";
+import type { LoginSchemaType } from "../../schemas/login.schema";
 
 type Props = {
-  register: UseFormRegister<LoginFormData>;
-  handleSubmit: UseFormHandleSubmit<LoginFormData>;
-  onSubmit: (data: LoginFormData) => void;
-  errors: FieldErrors<LoginFormData>;
+  register: UseFormRegister<LoginSchemaType>;
+  errors: FieldErrors<LoginSchemaType>;
   isSubmitting: boolean;
   showPassword: boolean;
   setShowPassword: React.Dispatch<React.SetStateAction<boolean>>;
+  handleSubmit: UseFormHandleSubmit<LoginSchemaType>;
+  onSubmit: (data: LoginSchemaType) => void;
 };
 
 const LoginForm = ({
@@ -34,14 +25,19 @@ const LoginForm = ({
 }: Props) => {
   return (
     <div className="max-w-sm w-full bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
-      {/* Header */}
+
       <div className="mb-8">
-        <h2 className="text-2xl font-semibold text-slate-800">Welcome back</h2>
-        <p className="text-slate-400 text-sm mt-1">Sign in to your account</p>
+        <h2 className="text-2xl font-semibold text-slate-800">
+          Welcome back
+        </h2>
+        <p className="text-slate-400 text-sm mt-1">
+          Sign in to your account
+        </p>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col gap-4">
+
           {/* Email */}
           <div className="flex flex-col gap-1.5">
             <label className="text-sm font-medium text-slate-600">
@@ -51,10 +47,8 @@ const LoginForm = ({
             <input
               type="email"
               placeholder="you@example.com"
-              {...register("email", {
-                required: "Email is required",
-              })}
-              className="px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 placeholder-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent transition"
+              {...register("email")}
+              className="px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 placeholder-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"
             />
 
             {errors.email && (
@@ -74,14 +68,8 @@ const LoginForm = ({
               <input
                 type={showPassword ? "text" : "password"}
                 placeholder="••••••••"
-                {...register("password", {
-                  required: "Password is required",
-                  minLength: {
-                    value: 6,
-                    message: "Password must be at least 6 characters",
-                  },
-                })}
-                className="px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 placeholder-slate-300 text-sm w-full pr-10 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent transition"
+                {...register("password")}
+                className="px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 placeholder-slate-300 text-sm w-full pr-10 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"
               />
 
               <button
@@ -108,14 +96,12 @@ const LoginForm = ({
           >
             {isSubmitting ? "Signing in..." : "Sign in"}
           </button>
+
         </div>
 
         <p className="text-center mt-6 text-sm text-slate-400">
           Don't have an account?{" "}
-          <Link
-            to="/register"
-            className="text-indigo-500 hover:text-indigo-600 font-medium"
-          >
+          <Link to="/register" className="text-indigo-500 font-medium">
             Sign up
           </Link>
         </p>
