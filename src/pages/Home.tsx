@@ -25,17 +25,17 @@ const Home = () => {
     <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-800">
       {/* Nav */}
       <nav className="flex items-center justify-between px-12 py-4 bg-white border-b border-slate-200">
-        <span className="text-xl font-bold text-blue-500">MyApp</span>
+        <span className="text-xl font-bold text-indigo-500">MyApp</span>
         <div className="flex gap-3">
           <button
             onClick={() => navigate("/login")}
-            className="px-5 py-2 rounded-lg border border-slate-200 text-blue-500 text-sm font-medium hover:bg-slate-50 cursor-pointer"
+            className="px-5 py-2 rounded-lg border border-slate-200 text-indigo-500 text-sm font-medium hover:bg-slate-50 cursor-pointer"
           >
             Log in
           </button>
           <button
             onClick={() => navigate("/register")}
-            className="px-5 py-2 rounded-lg bg-blue-500 text-white text-sm font-medium hover:bg-blue-600 cursor-pointer"
+            className="px-5 py-2 rounded-lg bg-indigo-500 text-white text-sm font-medium hover:bg-indigo-600 cursor-pointer"
           >
             Sign up
           </button>
@@ -44,7 +44,7 @@ const Home = () => {
 
       {/* Hero */}
       <main className="flex flex-col items-center justify-center flex-1 text-center px-6 py-20">
-        <span className="mb-5 inline-block bg-blue-50 text-blue-500 text-sm font-semibold px-4 py-1.5 rounded-full">
+        <span className="mb-5 inline-block bg-indigo-50 text-indigo-500 text-sm font-semibold px-4 py-1.5 rounded-full">
           Simple & Secure
         </span>
         <h1 className="text-5xl font-extrabold text-slate-900 mb-4 leading-tight">
@@ -56,13 +56,13 @@ const Home = () => {
         <div className="flex gap-4">
           <button
             onClick={() => navigate("/register")}
-            className="px-8 py-3.5 bg-blue-500 text-white rounded-xl text-base font-semibold hover:bg-blue-600 cursor-pointer"
+            className="px-8 py-3.5 bg-indigo-500 text-white rounded-xl text-base font-semibold hover:bg-indigo-600 cursor-pointer"
           >
             Get Started
           </button>
           <button
             onClick={() => navigate("/login")}
-            className="px-8 py-3.5 bg-white text-blue-500 border border-slate-200 rounded-xl text-base font-semibold hover:bg-slate-50 cursor-pointer"
+            className="px-8 py-3.5 bg-white text-indigo-500 border border-slate-200 rounded-xl text-base font-semibold hover:bg-slate-50 cursor-pointer"
           >
             Log In
           </button>
