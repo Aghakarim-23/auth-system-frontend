@@ -21,6 +21,11 @@ const features = [
 const Home = () => {
   const navigate = useNavigate();
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
+
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-800">
       {/* Nav */}
@@ -28,16 +33,16 @@ const Home = () => {
         <span className="text-xl font-bold text-indigo-500">MyApp</span>
         <div className="flex gap-3">
           <button
-            onClick={() => navigate("/login")}
+            onClick={() => navigate("/profile")}
             className="px-5 py-2 rounded-lg border border-slate-200 text-indigo-500 text-sm font-medium hover:bg-slate-50 cursor-pointer"
           >
-            Log in
+            Profile
           </button>
           <button
-            onClick={() => navigate("/register")}
-            className="px-5 py-2 rounded-lg bg-indigo-500 text-white text-sm font-medium hover:bg-indigo-600 cursor-pointer"
+            onClick={handleLogout}
+            className="px-5 py-2 rounded-lg bg-red-500 text-white text-sm font-medium hover:bg-red-600 cursor-pointer"
           >
-            Sign up
+            Log out
           </button>
         </div>
       </nav>
@@ -45,28 +50,20 @@ const Home = () => {
       {/* Hero */}
       <main className="flex flex-col items-center justify-center flex-1 text-center px-6 py-20">
         <span className="mb-5 inline-block bg-indigo-50 text-indigo-500 text-sm font-semibold px-4 py-1.5 rounded-full">
-          Simple & Secure
+          Welcome back
         </span>
         <h1 className="text-5xl font-extrabold text-slate-900 mb-4 leading-tight">
-          Welcome to MyApp
+          You're all set
         </h1>
         <p className="text-lg text-slate-500 max-w-md mb-10 leading-relaxed">
-          A clean, modern platform built for your everyday needs.
+          Explore your dashboard, manage your account, or check out what MyApp has to offer.
         </p>
-        <div className="flex gap-4">
-          <button
-            onClick={() => navigate("/register")}
-            className="px-8 py-3.5 bg-indigo-500 text-white rounded-xl text-base font-semibold hover:bg-indigo-600 cursor-pointer"
-          >
-            Get Started
-          </button>
-          <button
-            onClick={() => navigate("/login")}
-            className="px-8 py-3.5 bg-white text-indigo-500 border border-slate-200 rounded-xl text-base font-semibold hover:bg-slate-50 cursor-pointer"
-          >
-            Log In
-          </button>
-        </div>
+        <button
+          onClick={() => navigate("/profile")}
+          className="px-8 py-3.5 bg-indigo-500 text-white rounded-xl text-base font-semibold hover:bg-indigo-600 cursor-pointer"
+        >
+          Go to Profile
+        </button>
       </main>
 
       {/* Feature Cards */}
